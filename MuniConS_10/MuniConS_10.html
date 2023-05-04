@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!-- NORMAL SLIDE -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <script type="text/javascript" src="../MuniConS_01/js/noBounce.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/veeva-library.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/jquery.mobile-1.4.5.min.js"></script>
+    <!-- <script type="text/javascript" src="../MuniConS_01/js/general.js"></script> -->
+    <script type="text/javascript" src="../MuniConS_01/js/general_online.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/globals.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/slideflow.js"></script>
+    <script type="text/javascript" src="../MuniConS_01/js/VAEwF.js"></script>
+    <link rel="stylesheet" type="text/css" href="../MuniConS_01/css/style.css" />
+    <script type="text/javascript">
+        presentation = "MuniConS";
+        previous_slide = "09";
+        slide_id = "10";
+        next_slide = "12";
+        
+        /*Get global values*/
+        var globalvariables = storage.getAll();
+        
+        /*Set Return-Value for PopUps*/
+        sendglobalvalue("returntoid", slide_id);
+   
+        //Slideflow - Init - Start//
+        slideflow = globalvariables["slideflow"];							//slideflow
+        slideflowisactive = globalvariables["slideflowisactive"];			//slideflow
+        if (slideflow) { slideflow = slideflow.split(","); }				//slideflow
+        if (!Array.isArray(slideflow)) { slideflow = new Array(99); slideflowisactive = false; sendglobalvalue("slideflowisactive", "false"); }		               //slideflow
+        //Slideflow - Init - End//
+        
+        $("body").bind('touchmove', function (event) {
+            event.preventDefault();
+        });
+        
+        $(document).ready(function () {
+            
+            noBounce.init({ animate: true });
+              
+            //Slideflow - Main - Start//
+            var getSlidesArr = JSON.parse(localStorage.getItem('hideNav'));
+
+            if(slideflowisactive=="true"){
+                from = globalvariables["returntoid"];
+                nextslide = "";
+                previousslide = "";
+                slideflow.forEach(element => checkifhigher(element, from));
+                slideflow.reverse();
+                slideflow.forEach(element => checkiflower(element, from));
+                slideflow.reverse();
+            }
+            else
+            {
+                nextslide=next_slide;
+                previousslide=previous_slide;
+            }
+            //Slideflow - Main - End//
+            
+            /*SWIPE DETECT*/
+            $("#main").on("swipeleft", swipeLeftHandler);
+            function swipeLeftHandler(event) {
+                veevaNavigateSceneWithID(nextslide);
+            }
+            $("#main").on("swiperight", swipeRightHandler);
+            function swipeRightHandler(event) {
+                veevaNavigateSceneWithID(previousslide);
+            }
+            
+            //load background//
+            var bgimage="url('"+presentation+"_"+slide_id+"-full.jpg')";
+            document.getElementById('content').style.backgroundImage = bgimage;
+            
+            fadebodyin();
+        });
+        
+        function fadebodyin() {
+            $("#main").delay(100).fadeIn(500);
+        }
+        
+        //addfragment_fu(2);
+        
+    </script>
+    <style>
+        /*scrolling*/
+        
+        #content {
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            width: 1024px;
+            height: 1360px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            }
+        #navi {
+            z-index: 100;
+        }
+        #dropdown1, #dropdown2, #dropdown3 {
+            position: absolute;
+            z-index: 10;
+            left: 90px;
+            width: 370px;
+            height: 41px;
+            border: 2px solid #a5a5a5;
+            background-color: #e8e8e8;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 13pt;
+            color: #797979;
+            padding-left: 3px;
+            border-radius: 0;
+            opacity: 1;
+
+        }
+        #dropdown1{
+            top: 687px;
+        }
+        #dropdown2{
+            top: 767px;
+        }
+        #dropdown3{
+            top: 845px;
+        }
+        #textField1, #textField2, #textField3, #textField4{
+            position: absolute;
+            z-index: 10;
+            left: 500px;
+            width: 370px;
+            height: 41px;
+            border: none;
+            background-color: #e8e8e8;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 13pt;
+            color: #797979;
+            padding-left: 8px;
+            border-radius: 0;
+            opacity: 1;
+        }
+        #textField1{
+            top:687px;
+        }
+        #textField2{
+            top: 767px; 
+        }
+        #textField3{
+            top: 845px;
+        }
+        #textField4{
+            top: 950px;
+        }
+        #page7{
+            position: absolute;
+            height:40px;
+            width: 150px;
+            /*border: 1px solid red;*/
+            top: 54px;
+            left: 820px;
+        } 
+        
+    </style>
+</head>
+
+<body>
+    <div id="main" presentation-id="MuniConS" slide-id="10">
+        <div id="content" class="noImageCalc">
+
+        </div>
+        <!-- Links -->
+        <div class="link" id="page7" data-page="07"></div>
+
+
+        <select id="dropdown1">
+            <option value="" selected disabled>Bitte auswählen</option>
+            <option value=1>I oder II</option>
+            <option value=3>III</option>
+            <option value=4>IV</option>
+        </select>
+
+        <select id="dropdown2">
+            <option value="" selected disabled>Bitte auswählen</option>
+            <option value=1>&gt440</option>
+            <option value=2>320-440</option>
+            <option value=3>165-319</option>
+            <option value=4>&lt165</option>
+        </select>
+
+        <select id="dropdown3">
+            <option value="" selected disabled>Bitte auswählen</option>
+            <option value=1>BNP &lt50; NT-proBNP &lt300</option>
+            <option value=2>BNP 50-199; NT-proBNP 300-649</option>
+            <option value=3>BNP 200-800; NT-proBNP 650-1100</option>
+            <option value=4>BNP &gt800; NT-proBNP &gt1100</option>
+        </select>
+
+        <input type="text" id="textField1" disabled value="WHO-Funktionsklasse auswählen"/>
+        <input type="text" id="textField2" disabled value="6-Minuten-Gehstrecke auswählen"/>
+        <input type="text" id="textField3" disabled value="BNP oder NT-proBNP auswählen"/>
+        <input type="text" id="textField4" disabled value="Berechnung erfolgt automatisch"/>
+
+        <!--navigation-->
+            <div id="navi">
+                    <img src="../MuniConS_01/images/navi.jpg" style="width:1024px;height:55px;">
+
+                    <!--home-->
+                    <div class="link" id="home" data-page="01"></div>    
+
+                    <!--Seitenuebersicht-->
+                    <div class="link" id="seitenuebersicht" data-page="03"></div>
+
+                    <!--Referenzen-->
+                    <div class="link" id="referenzen" data-page="449"></div>
+
+                    <!--Abkuerzungen-->
+                    <div class="link" id="abkuerzungen" data-page="50"></div>
+
+                    <!--Fachinformation-->
+                    <a href="../MuniConS_01/pdf/fachinfo.pdf" id="fachinformation" target="_blank"></a>
+          
+              </div>
+    </div>
+<script>
+    var field1 = document.getElementById('textField1');
+    var field2 = document.getElementById('textField2');
+    var field3 = document.getElementById('textField3');
+    var field4 = document.getElementById('textField4');
+    
+    var field1Value;
+    var field2Value;
+    var field3Value;
+    function field4Logic(){
+        if(field1Value && field2Value && field3Value){
+            let total = parseInt(field1Value) + parseInt(field2Value) + parseInt(field3Value);
+            let fieldAvgVal = (total/3).toFixed(1);
+            let numString = total.toString()+" / 3 = " + fieldAvgVal.replace(".",",") + " ≈ " + Math.round(fieldAvgVal).toString() + " ";
+            field4.style.fontWeight = "600";
+            switch(Math.round(fieldAvgVal).toString()) {
+                case '1':
+                    field4.style.color = "#679146";
+                    field4.style.backgroundColor = "#c8e3b3";
+                    field4.value = numString + "(Niedriges Risiko)";
+                    break;
+                case '2':
+                    field4.style.color = "#ffcf00";
+                    field4.style.backgroundColor = "#fff695";
+                    field4.value = numString + "(Intermediär-niedriges Risiko)";
+                    break;    
+                case '3':
+                    field4.style.color = "#f8971d";
+                    field4.style.backgroundColor = "#ffcf90";
+                    field4.value = numString + "(Intermediär-hohes Risiko)";
+                    break;
+                case '4':
+                    field4.style.color = "#b5121b";
+                    field4.style.backgroundColor = "#fcb8c2";
+                    field4.value = numString + "(Hohes Risiko)";
+                    break;
+            }
+        }
+    }
+    function field1Logic(val){
+        field1.style.color = "#000000";
+        field1Value = val;
+        field4Logic();
+        switch(val) {
+            case '1':
+                field1.style.backgroundColor = "#c8e3b3";
+                field1.value = "1 (Niedriges Risiko)";
+                break;
+            case '3':
+                field1.style.backgroundColor = "#ffcf90";
+                field1.value = "3 (Intermediär-hohes Risiko)";
+                break;
+            case '4':
+                field1.style.backgroundColor = "#fcb8c2";
+                field1.value = "4 (Hohes Risiko)";
+                break;
+        }
+    }
+    function field2Logic(val){
+        field2.style.color = "#000000";
+        field2Value = val;
+        field4Logic();
+        switch(val) {
+            case '1':
+                field2.style.backgroundColor = "#c8e3b3";
+                field2.value = "1 (Niedriges Risiko)";
+                break;
+            case '2':
+                field2.style.backgroundColor = "#fff695";
+                field2.value = "2 (Intermediär-niedriges Risiko)";
+                break;    
+            case '3':
+                field2.style.backgroundColor = "#ffcf90";
+                field2.value = "3 (Intermediär-hohes Risiko)";
+                break;
+            case '4':
+                field2.style.backgroundColor = "#fcb8c2";
+                field2.value = "4 (Hohes Risiko)";
+                break;
+        }
+
+    }
+    function field3Logic(val){
+        field3.style.color = "#000000";
+        field3Value = val;
+        field4Logic();
+        switch(val) {
+            case '1':
+                field3.style.backgroundColor = "#c8e3b3";
+                field3.value = "1 (Niedriges Risiko)";
+                break;
+            case '2':
+                field3.style.backgroundColor = "#fff695";
+                field3.value = "2 (Intermediär-niedriges Risiko)";
+                break;    
+            case '3':
+                field3.style.backgroundColor = "#ffcf90";
+                field3.value = "3 (Intermediär-hohes Risiko)";
+                break;
+            case '4':
+                field3.style.backgroundColor = "#fcb8c2";
+                field3.value = "4 (Hohes Risiko)";
+                break;
+        }
+    }
+    
+
+    document.getElementById('dropdown1')
+        .addEventListener( "change", (event)=>{
+            field1Logic(event.target.value);
+    });
+    document.getElementById('dropdown2')
+        .addEventListener( "change", (event)=>{
+            field2Logic(event.target.value);
+    });
+    document.getElementById('dropdown3')
+        .addEventListener( "change", (event)=>{
+            field3Logic(event.target.value);
+    });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/noBounce.js"></script>
+    <script type="text/javascript" src="js/veeva-library.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/general.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/globals.js"></script>
+    <script type="text/javascript" src="js/slideflow.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+
+    <script type="text/javascript">
+        presentation = "MuniConS";
+        previous_slide = "2";
+        slide_id = "3";
+        next_slide = "4";
+
+        sendglobalvalue("returntoid", "2000");
+        sendglobalvalue("slideflowisactive", "false");
+        var nextslide = "";													//slideflow
+        var globalvariables = storage.getAll();								//slideflow
+        slideflow = globalvariables["slideflow"];							//slideflow
+        if (slideflow) { slideflow = slideflow.split(","); }				//slideflow
+        if (!Array.isArray(slideflow)) { slideflow = new Array(99); }		//slideflow
+
+        $("body").bind('touchmove', function (event) {
+            event.preventDefault();
+        });
+        $(document).ready(function () {
+            cleararray();
+            noBounce.init({ animate: true });
+            /*SWIPE DETECT*/
+            $("#main").on("swipeleft", swipeLeftHandler);
+            function swipeLeftHandler(event) {
+                sendglobalvalue("slideflowisactive", "false");
+                veevaNavigateSceneWithID('3000');
+            }
+            $("#main").on("swiperight", swipeRightHandler);
+            function swipeRightHandler(event) {
+                sendglobalvalue("slideflowisactive", "false");
+                veevaNavigateSceneWithID('1010');
+            }
+
+            function fadebodyin() {
+                $("#main").delay(100).fadeIn(500);
+            }
+
+
+            slideflow.forEach(element => switchon(element));				//slideflow
+            addtoarray("2000");
+            fadebodyin();
+        });
+
+
+
+    </script>
+    <style>
+        /* :focus {
+            outline: 0 !important;
+        } */
+        :focus {
+            outline: 0 !important;
+        }
+
+        #main {
+            display: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        h4 {
+            font-size: 32px;
+        }
+
+        .checked img {
+            border: 1px solid transparent;
+        }
+
+        .Auswahl {
+            background: url(images/ui-elemente-button-on-plain-default-secondary-default@3x.png) no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .Mit_Auswahl_fortfahren {
+            background: url(images/ui-elemente-button-on-plain-default-primary-default@3x.png) no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .row-inhalt {
+            height: 150px;
+        }
+
+        .gesamtbox {
+            margin-bottom: 10px !important;
+            margin-top: 7px !important;
+        }
+    </style>
+
+    <style>
+        /* :focus {
+            outline: 0 !important;
+        } */
+        :focus {
+            outline: 0 !important;
+        }
+
+        .slide_link {
+            padding: 3px 3px 12px 3px;
+            width: 167px;
+            height: 118px;
+        }
+
+        .slide_link img {
+            margin: 0 0 5px;
+            border: 1px solid #ea9630;
+            width: 167px;
+            height: 118px;
+
+        }
+
+        .icon_color {
+            width: 15px;
+            height: 15px;
+            border: solid 1px #ea9630;
+            border-radius: 2px;
+            margin-right: 6px;
+            float: left;
+            top: 3px;
+            position: relative;
+            text-align: center;
+        }
+
+        .icon_color_gesamt {
+
+
+            margin: 0 6px 0 2px;
+            float: left;
+            top: 4px;
+            position: relative;
+            text-align: center;
+        }
+
+        .checked .icon_color:before {
+            content: "✓";
+            color: white;
+            position: relative;
+            top: -6px;
+        }
+
+        .icon_color_gesamt:before {
+            content: "–";
+            font-size: 90%;
+            color: white;
+            position: relative;
+            top: -8px;
+        }
+
+        .checked {
+            background-color: #ea9630;
+            width: 174px;
+            height: 163px;
+            box-shadow: 0 0 0 2px #ea9630;
+
+        }
+
+        #gesamt1,
+        #gesamt2,
+        #gesamt3,
+        #gesamt4,
+        #gesamt5,
+        #gesamt6,
+        #gesamt7 {
+
+            width: 15px;
+            height: 15px;
+
+        }
+
+        .checked p {
+            color: white;
+        }
+
+        /* .btns {} */
+
+        .btns {
+            float: right;
+        }
+
+        .btns button {
+            width: 200px;
+            height: 49px;
+            padding: 8px 24px;
+            border: none;
+            font-weight: bold;
+        }
+
+
+        .Mit_Auswahl_fortfahren {
+            width: 223px;
+            height: 56px;
+            margin: 50px 0px 0px 10.5px;
+            padding: 17px 24px;
+
+            color: #fff;
+            position: relative;
+            top: -4px;
+            height: 47px !important;
+        }
+
+        .col-md-3 {
+            width: 20%;
+        }
+
+        .h-170 {
+            height: 170px;
+        }
+
+        .fach_info {
+            color: white;
+            text-decoration: none;
+        }
+
+        .fach_info:focus {
+            color: white !important;
+        }
+
+        .fach_info:active {
+            color: white !important;
+        }
+
+        a {
+            color: inherit !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main" presentation-id="MuniConS" slide-id="03">
+        <!-- <div class="rightcurtain" onclick="veevaNavigateSceneWithID(next_slide);">
+            <div class="nextbuttonoverlay"></div>
+        </div>
+        <div class="leftcurtain" onclick="veevaNavigateSceneWithID(previous_slide);"> -->
+        <!-- <div class="prevbuttonoverlay"></div> -->
+        <div class="container">
+            <div class="row">
+                <h1 class="color-secondary">
+                    <strong>Inhalt</strong>
+                </h1>
+            </div>
+            <div class="row">
+                <h3 style="line-height: 23px;">
+                    Springen Sie direkt zu einer bestimmten Seite, die Sie beim Gespräch präsentieren möchten.
+                </h3>
+            </div>
+            <br /><br />
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3000" onclick="checkme('3000')">
+                        <img src="images/3000_Kapiteldeckblatt_Studien_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Kapiteldeckblatt</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>Allgemeines</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3100" onclick="checkme('3100'); selectControl3100();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3100_Allgemeines_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PAH-Risikostratif.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3110" onclick="checkme('3110'); selectControl3110();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3110_Allgemeines_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Risikobewertung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>CTEPH</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3200" onclick="checkme('3200');selectControl3200();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3200_CTEPH_Therapiealgorithmus_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Therapiealgorith.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3210" onclick="checkme('3210');selectControl3210();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3210_CTEP_Wirksamkeit_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>CHEST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3220" onclick="checkme('3220');selectControl3220();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3220_CTEP_Studienuebersicht_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>CTEPH-Patienten</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>PAH</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3300" onclick="checkme('3300');selectControl3300();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3300_PAH_Patent2Wirksamkeit_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PATENT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3310" onclick="checkme('3310');selectControl3310();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3310_PAH_Studienuebersicht_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PAH-Patienten</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>RESPITE</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3400" onclick="checkme('3400');selectControl3400();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3400_Respite_Studiendesign_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>RESPITE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3500" onclick="checkme('3500');selectControl3500();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3500_Respite_Ergebnisse_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Ergebnisse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>REPLACE</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3600" onclick="checkme('3600');selectControl3600();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3600_Replace_Studiendesign_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>REPLACE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3610" onclick="checkme('3610');selectControl3610();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3610_Replace_Ergebnisse_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Ergebnisse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3620" onclick="checkme('3620');selectControl3620();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3620_Replace_Exploratorische-Analyse_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Risikoverbesserung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3630" onclick="checkme('3630');selectControl3630();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3630_Replace_Sicherheitsdaten_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Sicherheit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3640" onclick="checkme('3640');selectControl3640();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3640_Replace_Limitationen+Schlussfolgerungen_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>Limit. & Schlussf.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <h2 class="color-primary mb-30">
+                    <strong>Kollagenose</strong>
+                </h2>
+            </div>
+            <div class="row h-170">
+                <div class="col-md-3">
+                    <div class="slide_link" id="3700" onclick="checkme('3700');selectControl();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3700_Kollagenose_SubgruppenanalysePAH-CTD_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PAH-CTD I</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3710" onclick="checkme('3710');selectControl3710();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3710_Kollagenose_Ergebnisse1_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PAH-CTD II</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="slide_link" id="3720" onclick="checkme('3720');selectControl3720();">
+                        <img src="images/group-copy-4@3x.png" alt="link" class="overlay">
+                        <img src="images/3720_Kollagenose_Ergebnisse2_Zuschnitt.jpg" class="thumb4iha">
+                        <div class="check">
+                            <div class="icon_color"></div>
+                            <div class="icon_text">
+                                <p>PAH-CTD III</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7">
+                    <div class="btns">
+                        <button class="Auswahl" onclick="cleararray();"></button>
+
+                        <button class="Mit_Auswahl_fortfahren" onclick="nextslideinflow();"></button>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <br /><br />
+        </div>
+        <!-- <div class="noImageCalc">
+            <div class="msd_menu_bar position_fixed">
+                <div class="menu_item menu_item_home d_flex a_i_center link"
+                    style="padding: 1rem 1rem 1rem 1rem; justify-content: flex-end;" data-page="1000">
+                    <img src="images/home-24-px.svg" alt="">
+                </div>
+                <div class="menu_item spacing_kilo link" data-page="2000">
+                    Seitenübersicht
+                </div>
+                <div class="menu_item spacing_kilo link" data-page="5000">
+                    Referenzen
+                </div>
+                <div class="menu_item spacing_kilo link" data-page="5010">
+                    Abkürzungen
+                </div>
+                <div class="menu_item spacing_kilo ">
+                    <a class="fach_info" href="./pdf/adempas.pdf" target="_blank"> Fachinformationen</a>
+                </div>
+            </div>
+        </div> -->
+        <div class="noImageCalc">
+            <div class="msd_menu_bar position_fixed">
+                <div class="menu_item menu_item_home d_flex a_i_center link"
+                    style="padding: 1rem 1rem 1rem 1rem; justify-content: flex-end;" data-page="01">
+                    <img src="images/home-24-px.svg" alt="">
+                </div>
+                <div class="menu_item spacing_kilo link" data-page="03">
+                    Seitenübersicht
+                </div>
+                <div class="menu_item spacing_kilo link " data-page="49">
+                    Referenzen
+                </div>
+                <div class="menu_item spacing_kilo link" data-page="50">
+                    Abkürzungen
+                </div>
+                <div class="menu_item spacing_kilo link">
+                    <a class="fach_info" href="../MuniConS_01/pdf/fachinfo.pdf" target="_blank"> Fachinformationen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
